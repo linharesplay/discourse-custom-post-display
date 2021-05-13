@@ -1,0 +1,11 @@
+plugins:
+  custom_post_display_enabled:
+    default: false
+  custom_post_display_badge_ids:
+    default: ''
+  custom_post_display_join_format:
+    default: '%-m/%y'
+  custom_post_display_user_field_name:
+    default: ''
+  custom_post_display_user_field_format:
+    default: '%m/%d/%Y'
