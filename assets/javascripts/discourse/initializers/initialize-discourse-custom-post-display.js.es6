@@ -27,7 +27,7 @@ export default {
                     href: `/badges/${badge.id}/${badge.slug}`,
                     title: badge.name
                   },
-                  iconNode(badge.icon)
+                  iconNode(badge.icon.replace("fa-", ""))
                 )
               )
             );
