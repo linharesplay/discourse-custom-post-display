@@ -24,22 +24,7 @@ after_initialize do
   end
 
   add_to_serializer(:post, :user_join_date, false) do
-    dates = []
-    dates << object&.user&.created_at
-
-    unless SiteSetting.custom_post_display_user_field_name.empty?
-      fp_date = object&.user&.posts&.first&.created_at
-      dates << fp_date unless fp_date.nil?
-
-      ucf = UserCustomField.where(user_id: object&.user&.id, name: SiteSetting.custom_post_display_user_field_name).pluck(:value).first
-      if ucf
-        ucf_date = Date.strptime(ucf, SiteSetting.custom_post_display_user_field_format) rescue nil
-        dates << ucf_date unless ucf_date.nil?
-      end
-    end
-
-    min_date = dates.min
-    "#{min_date.strftime(SiteSetting.custom_post_display_join_format)}" || "unknown" rescue "bad fmt"
+    "#{object&.user&.created_at&.strftime(SiteSetting.custom_post_display_join_format)}" || "unknown" rescue "bad fmt"
   end
 
   add_to_serializer(:user, :badges) do

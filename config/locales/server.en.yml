@@ -3,5 +3,3 @@ en:
     custom_post_display_enabled: "Enable Custom Post Display"
     custom_post_display_badge_ids: "Badges to show in Custom Post Display. Numeric ID's, comma separated."
     custom_post_display_join_format: "Date format for join date display. See https://apidock.com/ruby/DateTime/strftime"
-    custom_post_display_user_field_name: "If enabled, join date will be the minimum of the user create date, first post, and the value of this user field."
-    custom_post_display_user_field_format: "Date format for join date user field. See https://apidock.com/ruby/DateTime/strftime"
