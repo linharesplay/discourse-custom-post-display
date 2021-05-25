@@ -11,6 +11,7 @@ export default {
 
   initialize() {
     withPluginApi("0.8.25", (api) => {
+      const siteSettings = api.container.lookup("site-settings:main");
       api.includePostAttributes('user_post_count', 'user_likes_received', 'user_join_date', 'user_badges');
 
       api.decorateWidget("poster-name:after", helper => {
@@ -48,7 +49,7 @@ export default {
           helper.h(
             'a',
             {
-              href: custom_post_display_help_url,
+              href: siteSettings.custom_post_display_help_url,
               title: 'Join Date, Posts Written, Likes Received'
             },
             helper.h('span',
