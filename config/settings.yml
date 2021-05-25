@@ -5,3 +5,6 @@ plugins:
     default: ''
   custom_post_display_join_format:
     default: '%-m/%y'
+  custom_post_display_help_url:
+    default: ''
+    client: true
