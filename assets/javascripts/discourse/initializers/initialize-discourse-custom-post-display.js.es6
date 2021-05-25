@@ -24,7 +24,7 @@ export default {
                 helper.h(
                   'a',
                   {
-                    href: custom_post_display_help_url,
+                    href: `/badges/${badge.id}/${badge.slug}`,
                     title: badge.name
                   },
                   iconNode(badge.icon.replace("fa-", ""))
@@ -48,8 +48,8 @@ export default {
           helper.h(
             'a',
             {
-            href: 'http://yahoo.com',
-            title: 'Join Date, Posts Written, Likes Received'
+              href: custom_post_display_help_url,
+              title: 'Join Date, Posts Written, Likes Received'
             },
             helper.h('span',
               badgeEls.concat(els)
