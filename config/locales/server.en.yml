@@ -3,3 +3,4 @@ en:
     custom_post_display_enabled: "Enable Custom Post Display"
     custom_post_display_badge_ids: "Badges to show in Custom Post Display. Numeric ID's, comma separated."
     custom_post_display_join_format: "Date format for join date display. See https://apidock.com/ruby/DateTime/strftime"
+    custom_post_display_help_url: "Url to navigate to when custom display is clicked"
