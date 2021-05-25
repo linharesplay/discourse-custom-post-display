@@ -24,7 +24,7 @@ export default {
                 helper.h(
                   'a',
                   {
-                    href: `/badges/${badge.id}/${badge.slug}`,
+                    href: custom_post_display_help_url,
                     title: badge.name
                   },
                   iconNode(badge.icon.replace("fa-", ""))
