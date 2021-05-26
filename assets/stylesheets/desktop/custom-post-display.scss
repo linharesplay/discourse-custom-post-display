@@ -1,7 +1,4 @@
 .cpd-container {
-  position: absolute;
-  left: 11px;
-  top: 28px;
-  z-index: 199; /* user card has 200, we need to stay below */
-  margin-top: 2px;
+  order: 10;
+  flex-basis: 100%;
 }
