@@ -52,7 +52,7 @@ export default {
               href: siteSettings.custom_post_display_help_url,
               title: 'Join Date, Posts Written, Likes Received'
             },
-            helper.h('span',
+            helper.h('span.cpd-span',
               badgeEls.concat(els)
             )          
           )
