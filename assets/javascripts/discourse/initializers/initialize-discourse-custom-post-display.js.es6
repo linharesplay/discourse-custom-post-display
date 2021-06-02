@@ -36,7 +36,7 @@ export default {
         }
         const els = [
           iconNode('far-calendar-alt', {'class': 'cpd-join-date-icon', title: 'Join Date'}),
-          helper.h('span', { className: 'cpd-text cpd-post-count', title: 'Join Date'}, '' + helper.attrs.user_join_date),
+          helper.h('span', { className: 'cpd-text cpd-join-date', title: 'Join Date'}, '' + helper.attrs.user_join_date),
           iconNode('edit', {'class': 'cpd-post-count-icon', title: 'Posts Written'}),
           helper.h('span', { className: 'cpd-text cpd-post-count', title: 'Posts Written'}, '' + helper.attrs.user_post_count),
           iconNode('far-thumbs-up', {'class': 'cpd-likes-received-icon', title: 'Likes Received'}),
