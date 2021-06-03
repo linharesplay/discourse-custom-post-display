@@ -2,3 +2,8 @@
   order: 10;
   flex-basis: 100%;
 }
+
+/* reduce size of items to the right that can cut off cpd.  */
+.post-infos .edits {font-size: x-small}; /* don't need a huge edit icon */
+.post-infos .avatar {width: 18px; height: 18px}; /* default 25x25 */
+
