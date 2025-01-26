@@ -38,7 +38,7 @@ export default {
           iconNode('fa-calendar-days', {'class': 'cpd-join-date-icon', title: 'Join Date'}),
           helper.h('span', { className: 'cpd-text cpd-join-label', title: 'Join Date'}, '' + 'Joined'),
           helper.h('span', { className: 'cpd-text cpd-join-date', title: 'Join Date'}, '' + helper.attrs.user_join_date),
-          iconNode('edit', {'class': 'cpd-post-count-icon', title: 'Posts Written'}),
+          iconNode('fa-pen-to-square', {'class': 'cpd-post-count-icon', title: 'Posts Written'}),
           helper.h('span', { className: 'cpd-text cpd-post-count', title: 'Posts Written'}, '' + helper.attrs.user_post_count),
           iconNode('fa-thumbs-up', {'class': 'cpd-likes-received-icon', title: 'Likes Received'}),
           helper.h('span', { className: 'cpd-text cpd-likes-received', title: 'Likes Received' }, '' + helper.attrs.user_likes_received),
