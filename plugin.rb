@@ -19,6 +19,10 @@ after_initialize do
     object&.user&.post_count || 0
   end
 
+  add_to_serializer(:post, :user_topic_count, false) do
+    object&.user&.topic_count || 0
+  end
+
   add_to_serializer(:post, :user_likes_received, false) do
     object&.user&.user_stat&.likes_received || 0
   end
