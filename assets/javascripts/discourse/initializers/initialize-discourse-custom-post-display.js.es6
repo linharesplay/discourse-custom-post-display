@@ -12,7 +12,7 @@ export default {
   initialize() {
     withPluginApi("0.8.25", (api) => {
       const siteSettings = api.container.lookup("site-settings:main");
-      api.includePostAttributes('user_post_count', 'user_likes_received', 'user_join_date', 'user_badges');
+      api.includePostAttributes('user_post_count', 'user_likes_received', 'user_topic_count', 'user_join_date', 'user_badges');
 
       api.decorateWidget("poster-name:after", helper => {
         var badgeEls = [];
@@ -39,7 +39,7 @@ export default {
           //helper.h('span', { className: 'cpd-text cpd-join-label', title: 'Join Date'}, '' + 'Joined'),
           helper.h('span', { className: 'cpd-text cpd-join-date', title: 'Join Date'}, '' + helper.attrs.user_join_date),
           iconNode('pen-to-square', {'class': 'cpd-post-count-icon', title: 'Posts Written'}),
-          helper.h('span', { className: 'cpd-text cpd-post-count', title: 'Posts Written'}, '' + helper.attrs.user_post_count),
+          helper.h('span', { className: 'cpd-text cpd-post-count', title: 'Posts Written' }, '' + (helper.attrs.user_post_count + helper.attrs.user_topic_count)),
           iconNode('thumbs-up', {'class': 'cpd-likes-received-icon', title: 'Likes Received'}),
           helper.h('span', { className: 'cpd-text cpd-likes-received', title: 'Likes Received' }, '' + helper.attrs.user_likes_received),
         ];
