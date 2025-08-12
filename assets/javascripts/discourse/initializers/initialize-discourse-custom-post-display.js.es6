@@ -40,7 +40,7 @@ export default {
           helper.h('span', { className: 'cpd-text cpd-join-date', title: 'Join Date'}, '' + helper.attrs.user_join_date),
           iconNode('pen-to-square', {'class': 'cpd-post-count-icon', title: 'Posts Written'}),
           helper.h('span', { className: 'cpd-text cpd-post-count', title: 'Posts Written' }, '' + (helper.attrs.user_post_count + helper.attrs.user_topic_count)),
-          iconNode('thumbs-up', {'class': 'cpd-likes-received-icon', title: 'Likes Received'}),
+          iconNode('heart', {'class': 'cpd-likes-received-icon', title: 'Likes Received'}),
           helper.h('span', { className: 'cpd-text cpd-likes-received', title: 'Likes Received' }, '' + helper.attrs.user_likes_received),
         ];
         return helper.h(
