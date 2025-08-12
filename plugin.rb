@@ -13,7 +13,7 @@ register_asset 'stylesheets/mobile/custom-post-display.scss', :mobile
 after_initialize do
   register_svg_icon "calendar-days"
   register_svg_icon "pen-to-square"
-  register_svg_icon "thumbs-up"
+  register_svg_icon "heart"
 
   add_to_serializer(:post, :user_post_count, false) do
     object&.user&.post_count || 0
