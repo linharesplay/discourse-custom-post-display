@@ -1,32 +1,109 @@
 import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 import { service } from "@ember/service";
+import { ajax } from "discourse/lib/ajax";
 import icon from "discourse/helpers/d-icon";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 class CustomPostDisplay extends Component {
   @service siteSettings;
 
+  @tracked _postCount = null;
+  @tracked _likesReceived = null;
+  @tracked _joinDate = null;
+  @tracked _badges = null;
+  @tracked _loaded = false;
+
+  get post() {
+    return this.args.post;
+  }
+
   get badges() {
-    return this.args.post?.user_badges || [];
+    if (this._badges !== null) {
+      return this._badges;
+    }
+    return this.post?.user_badges || [];
   }
 
   get joinDate() {
-    return this.args.post?.user_join_date;
+    if (this._joinDate !== null) {
+      return this._joinDate;
+    }
+    return this.post?.user_join_date || "";
   }
 
   get postCount() {
-    return (
-      (this.args.post?.user_post_count || 0) +
-      (this.args.post?.user_topic_count || 0)
-    );
+    if (this._postCount !== null) {
+      return this._postCount;
+    }
+    const count =
+      (this.post?.user_post_count || 0) +
+      (this.post?.user_topic_count || 0);
+    return count;
   }
 
   get likesReceived() {
-    return this.args.post?.user_likes_received || 0;
+    if (this._likesReceived !== null) {
+      return this._likesReceived;
+    }
+    return this.post?.user_likes_received || 0;
+  }
+
+  get needsLoad() {
+    if (this._loaded) {
+      return false;
+    }
+    const post = this.post;
+    if (!post) {
+      return false;
+    }
+    const hasPostCount =
+      post.user_post_count !== undefined && post.user_post_count !== null;
+    const hasLikes =
+      post.user_likes_received !== undefined &&
+      post.user_likes_received !== null;
+    const hasJoinDate =
+      post.user_join_date !== undefined &&
+      post.user_join_date !== null &&
+      post.user_join_date !== "";
+    return !hasPostCount || !hasLikes || !hasJoinDate;
   }
 
   get helpUrl() {
     return this.siteSettings.custom_post_display_help_url;
+  }
+
+  constructor() {
+    super(...arguments);
+    this._maybeLoadData();
+  }
+
+  async _maybeLoadData() {
+    if (!this.needsLoad) {
+      return;
+    }
+    const post = this.post;
+    if (!post?.id) {
+      return;
+    }
+    try {
+      const result = await ajax(`/posts/${post.id}.json`);
+      if (result) {
+        const userPostCount = result.user_post_count || 0;
+        const userTopicCount = result.user_topic_count || 0;
+        this._postCount = userPostCount + userTopicCount;
+        this._likesReceived = result.user_likes_received || 0;
+        if (result.user_join_date) {
+          this._joinDate = result.user_join_date;
+        }
+        if (result.user_badges) {
+          this._badges = result.user_badges;
+        }
+        this._loaded = true;
+      }
+    } catch (e) {
+      // Silently fail - display will show 0 as fallback
+    }
   }
 
   <template>
@@ -68,6 +145,17 @@ export default {
   name: "discourse-custom-post-display-plugin",
   initialize() {
     withPluginApi((api) => {
+      // Register custom serializer fields as tracked properties so the
+      // Glimmer post stream includes them when posts arrive via MessageBus
+      // and triggers reactive re-renders when their values change.
+      api.addTrackedPostProperties(
+        "user_post_count",
+        "user_topic_count",
+        "user_likes_received",
+        "user_join_date",
+        "user_badges"
+      );
+
       api.renderAfterWrapperOutlet(
         "post-meta-data-poster-name",
         CustomPostDisplay
