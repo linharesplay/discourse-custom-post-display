@@ -70,7 +70,15 @@ class CustomPostDisplay extends Component {
   }
 
   get helpUrl() {
-    return this.siteSettings.custom_post_display_help_url;
+    const settingUrl = this.siteSettings.custom_post_display_help_url;
+    if (settingUrl) {
+      return settingUrl;
+    }
+    const username = this.post?.username;
+    if (username) {
+      return `/u/${username}/summary`;
+    }
+    return "";
   }
 
   constructor() {
