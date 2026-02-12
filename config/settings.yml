@@ -4,7 +4,7 @@ plugins:
   custom_post_display_badge_ids:
     default: ''
   custom_post_display_join_format:
-    default: '%-m/%y'
+    default: '%m/%Y'
   custom_post_display_help_url:
     default: ''
     client: true
