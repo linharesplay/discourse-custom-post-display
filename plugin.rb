@@ -15,19 +15,19 @@ after_initialize do
   register_svg_icon "pen-to-square"
   register_svg_icon "heart"
 
-  add_to_serializer(:post, :user_post_count, false) do
+  add_to_serializer(:post, :user_post_count, respect_plugin_enabled: false) do
     object&.user&.post_count || 0
   end
 
-  add_to_serializer(:post, :user_topic_count, false) do
+  add_to_serializer(:post, :user_topic_count, respect_plugin_enabled: false) do
     object&.user&.topic_count || 0
   end
 
-  add_to_serializer(:post, :user_likes_received, false) do
+  add_to_serializer(:post, :user_likes_received, respect_plugin_enabled: false) do
     object&.user&.user_stat&.likes_received || 0
   end
 
-  add_to_serializer(:post, :user_join_date, false) do
+  add_to_serializer(:post, :user_join_date, respect_plugin_enabled: false) do
     "#{object&.user&.created_at&.strftime(SiteSetting.custom_post_display_join_format)}" || "unknown" rescue "bad fmt"
   end
 
@@ -45,12 +45,8 @@ after_initialize do
     ).as_json
   end
 
-  add_to_serializer(:post, :user_badges) do
+  add_to_serializer(:post, :user_badges, include_condition: -> { object&.user&.featured_badges.present? }) do
     ActiveModel::ArraySerializer.new(object&.user&.featured_badges, each_serializer: BadgeSerializer).as_json
-  end
-
-  add_to_serializer(:post, :include_user_badges?) do
-    object&.user&.featured_badges.present?
   end
 
   add_to_class(:user, :featured_badges) do
